@@ -1,13 +1,25 @@
 #!/bin/bash
 
-git submodule init
+source setup.sh
+
+if [ $SSNET_INTEGRATION_USESUBMODULE_LARLITE -eq 1 ]
+then
+    git submodule init
+fi
+
+if [ $SSNET_INTEGRATION_USESUBMODULE_LARCV -eq 1 ]
+then
+    git submodule init
+fi
 
 source configure_larcv1.sh
 
-cd ../larlite
+home=$PWD
+
+cd ${LARLITE_BASEDIR}
 make
 
-cd ../larcv1
+cd ${LARCV_BASEDIR}
 make
 
-cd ..
+cd $home
